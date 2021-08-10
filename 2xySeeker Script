@@ -1,0 +1,37 @@
+local player = game.Players.LocalPlayer
+local char = player.Character
+local GunDisplay = char:WaitForChild("GunDisplay")
+local NewTexture = "rbxassetid://7234255897"
+
+local function editSharkSeeker(display)
+	display.TextureID = NewTexture
+end
+
+editSharkSeeker(GunDisplay)
+
+player.Backpack.ChildAdded:Connect(function(child)
+	if child:IsA("Tool") then
+		if child.Name == "Gun" then
+			editSharkSeeker(child.Handle)
+		end
+	end
+end)
+
+char.ChildAdded:Connect(function(child)
+	if child:IsA("Tool") then
+		if child.Name == "Gun" then
+			editSharkSeeker(child.Handle)
+		end
+	end
+end)
+
+player.CharacterAdded:connect(function()
+	local GunDisplay = char:WaitForChild("GunDisplay")
+	editSharkSeeker(GunDisplay)
+end)
+
+char.ChildAdded:connect(function(child)
+	if child.Name == "GunDisplay" then
+		editSharkSeeker(child)
+	end
+end)
